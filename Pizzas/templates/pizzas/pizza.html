@@ -1,0 +1,48 @@
+{% extends "Pizzas/base.html" %}
+
+{% block page_header %}
+
+<h3> Pizza: {{ pizza }} </h3>
+
+{% endblock page_header %}
+
+{% block content %}
+<p>
+    {% load static %}
+    <img src="{{ pizza.image.url }}">
+</p>
+
+<ul>
+    <h4>Toppings</h4>
+    {% for t in toppings %}
+    <div class="card mb-3">
+        <div class="card-body">
+            {{ t.topping_name }}
+        </div>
+    </div>
+    {% empty %}
+    <p> There are no toppings for this pizza yet. </p>
+    {% endfor %}
+</ul>
+
+<p>
+    <a href="{% url 'pizzas:new_entry' pizza.id %}">Add a new comment</a>
+</p>
+
+<ul>
+    {% for e in entries %}
+    <div class="card mb-3"></div>
+    <h4 class="card-header">
+        {{ e.date_added|date:'M d, Y H:i' }}
+    </h4>
+    <div class="card-body">
+        {{ e.text|linebreaks }}
+    </div>
+    </div>
+    {% empty %}
+    <p>There are no comments for this pizza. Please feel free to add one! </p>
+    {% endfor %}
+</ul>
+
+
+{% endblock content %}  
